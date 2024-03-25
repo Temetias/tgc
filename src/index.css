@@ -1,0 +1,14 @@
+body {
+  background-color: #2f3136;
+  color: #fff;
+  margin: 0;
+
+  font-family: Copperplate, Copperplate Gothic Light, fantasy;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Copperplate, Copperplate Gothic Light, fantasy;
+}
