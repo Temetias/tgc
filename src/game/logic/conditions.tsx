@@ -1,4 +1,4 @@
-import { PROTECTION_POWER } from "../constants";
+import { PROTECTION_POWER } from "../../constants";
 import {
   CardEntity,
   CreatureEntity,

@@ -37,6 +37,10 @@ export type Creature = {
   type: "creature";
   power: number;
   keywords: (CreatureKeyword | CommonKeyword)[];
+  deathEffect?: {
+    description: JSX.Element | string;
+    action: Effect;
+  };
 } & CardMeta;
 
 export type CreatureEntity = Creature & {

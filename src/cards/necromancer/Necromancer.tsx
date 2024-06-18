@@ -1,6 +1,5 @@
 import { Creature } from "../../store/Types";
-import { pickRandomCards } from "../../utils";
-import { DrawTooltip, ReviveTooltip, revive } from "../cardEffects";
+import { ReviveTooltip, revive } from "../cardEffects";
 import art from "./necromancer.png";
 
 export const Necromancer: Creature = {

@@ -15,22 +15,26 @@ import {
   WsIncomingMessage,
   WsOutgoingMessage,
 } from "./Types";
-import { MOCK_DECK } from "../game/constants";
+import { MOCK_DECK } from "../constants";
 import { pickRandomCards } from "../utils";
 import { v4 as uuidv4, v4 } from "uuid";
 import CardIndex from "../cards/CardIndex";
+import { parseDeckFromLocalStorage } from "../deckLoading";
 
 export type StoreData = {
   game: GameState;
 };
 
 const initialStore: StoreData = (() => {
-  const player1InitialDeck = MOCK_DECK.map((c) => ({
-    ...c,
-    hasAttacked: false,
-    wasPlayedThisTurn: false,
-    id: uuidv4(),
-  }));
+  console.log(parseDeckFromLocalStorage());
+  const player1InitialDeck = (parseDeckFromLocalStorage() || MOCK_DECK).map(
+    (c) => ({
+      ...c,
+      hasAttacked: false,
+      wasPlayedThisTurn: false,
+      id: uuidv4(),
+    })
+  );
   const player2InitialDeck = MOCK_DECK.map((c) => ({
     ...c,
     hasAttacked: false,
@@ -291,11 +295,7 @@ export const StoreProvider = ({ children }: PropsWithChildren) => {
         ? "ws://localhost:3001"
         : "ws://164.92.130.250:3001"
     );
-    const [playerId, gameId, ...rest] = [
-      ...window.location.href.split("/"),
-    ].reverse();
-    // We're outside of React Router, so we need to get the game id from the URL
-    const gameUrl = rest.reverse().join("/") + "/" + gameId;
+    const [playerId, gameId] = [...window.location.href.split("/")].reverse();
     wsInit.onopen = () => {
       sendWsMessage(wsInit, {
         type: "connect",
@@ -321,9 +321,22 @@ export const StoreProvider = ({ children }: PropsWithChildren) => {
       if (msg.type === "joined") {
         console.log("Joined game!");
         setWaitingForOpponent(false);
-        setStateReceived(true);
+        const receivedGameState = transportableGameStateToGameState(
+          msg.payload.gameState
+        );
         setStoreState({
-          game: transportableGameStateToGameState(msg.payload.gameState),
+          game: {
+            ...receivedGameState,
+            player1: {
+              ...receivedGameState.player1,
+              deck: initialStore.game.player1.deck,
+              state: {
+                ...receivedGameState.player1.state,
+                hand: initialStore.game.player1.state.hand,
+                stack: initialStore.game.player1.state.stack,
+              },
+            },
+          },
         });
       }
     };

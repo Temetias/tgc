@@ -1,13 +1,7 @@
-import React, { PropsWithChildren } from "react";
-import { useStoreDispatch } from "./store/Core";
-import logo from "./logos/PST_Wicked.png";
+import { PropsWithChildren } from "react";
 import "./Layout.css";
-import { Link, useParams } from "react-router-dom";
 
-export const Layout = ({
-  children,
-  hideDataset,
-}: PropsWithChildren<{ hideDataset?: boolean }>) => {
+export const Layout = ({ children }: PropsWithChildren) => {
   return (
     <div className="Layout">
       <div className="Layout-children">{children}</div>

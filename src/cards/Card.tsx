@@ -50,6 +50,9 @@ export const CardComponent = ({
               ))}
             </b>
           </div>
+          {card.playEffect?.description && card.type === "creature" && (
+            <b>When played:</b>
+          )}{" "}
           {card.playEffect?.description}
         </div>
       </div>

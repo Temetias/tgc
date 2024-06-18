@@ -13,7 +13,7 @@ import Conditions from "../../game/logic/conditions";
 import Actions from "../../game/logic/actions";
 import Pointers from "../logic/pointers";
 import { useEffect, useState } from "react";
-import { PROTECTION_POWER } from "../constants";
+import { PROTECTION_POWER } from "../../constants";
 
 const OpponentHand = ({ hand }: { hand: CardEntity[] }) => {
   const { game } = useStoreState();

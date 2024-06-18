@@ -3,6 +3,7 @@ import { Angel } from "./angel/Angel";
 import { Chort } from "./chort/Chort";
 import { Doom } from "./doom/Doom";
 import { FireLash } from "./fireLash/FireLash";
+import { FlamingBallista } from "./flamingBallista/FlamingBallista";
 import { GreaterZombie } from "./greaterZombie/GreaterZombie";
 import { LesserZombie } from "./lesserZombie/LesserZombie";
 import { Necromancer } from "./necromancer/Necromancer";
@@ -14,8 +15,10 @@ import { Wave } from "./wave/Wave";
 
 const allCards = [
   Angel,
+  Chort,
   Doom,
   FireLash,
+  FlamingBallista,
   GreaterZombie,
   LesserZombie,
   Necromancer,
@@ -24,7 +27,6 @@ const allCards = [
   Reaper,
   Warrior,
   Wave,
-  Chort,
 ];
 
 const cardIndex = allCards.reduce((acc, card) => {

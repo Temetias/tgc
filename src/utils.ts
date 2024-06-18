@@ -1,4 +1,6 @@
-import { CardEntity, CreatureEntity, Player } from "./store/Types";
+import cardIndex from "./cards/CardIndex";
+import { LOCAL_STORAGE_DECK_KEY } from "./constants";
+import { Card, CardEntity, CreatureEntity, Player } from "./store/Types";
 
 // Randomly pics the specified amount of cards from the deck and returns the
 // remaining deck and the picked cards.
@@ -34,4 +36,12 @@ export const processPostmortem = (
       };
     }
   }, playerState);
+};
+
+export const onlyUnique = <T extends string | number>(
+  value: T,
+  index: number,
+  array: T[]
+) => {
+  return array.indexOf(value) === index;
 };

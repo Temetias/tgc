@@ -6,15 +6,25 @@ import { StoreProvider } from "./store/Core";
 import { RouterProvider, Navigate, createHashRouter } from "react-router-dom";
 import { Game } from "./game/ui/Game";
 import { v4 } from "uuid";
+import { DeckBuilder } from "./deckbuilder/DeckBuilder";
+import { MainMenu } from "./mainmenu/MainMenu";
 
 const router = createHashRouter([
   {
     path: "/",
-    element: <Navigate to={`/game/${v4()}/${v4()}`} />,
+    element: <MainMenu />,
   },
   {
     path: "/game/:gameId/:playerId",
-    element: <Game />,
+    element: (
+      <StoreProvider>
+        <Game />
+      </StoreProvider>
+    ),
+  },
+  {
+    path: "/deckbuilder",
+    element: <DeckBuilder />,
   },
 ]);
 
@@ -24,9 +34,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   //  <React.StrictMode>
-  <StoreProvider>
-    <RouterProvider router={router} />
-  </StoreProvider>
+  <RouterProvider router={router} />
   //  </React.StrictMode>
 );
 
