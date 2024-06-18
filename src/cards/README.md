@@ -11,6 +11,7 @@
 - 1000 power = 1 resource (less than 2000 is worth less)
 - card draw = 1 resource
 - fragile = -1 resource
+- bloodlust = -1 resource
 - revive = 3 resource (always with fragile if creature effect to avoid infinite value!)
 - blocker = 0.5 resource
 - add protection = 2 resource

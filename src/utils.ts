@@ -1,4 +1,4 @@
-import { Card, CardEntity, CreatureEntity, Player } from "./store/Types";
+import { CardEntity, CreatureEntity, Player } from "./store/Types";
 
 // Randomly pics the specified amount of cards from the deck and returns the
 // remaining deck and the picked cards.
@@ -22,17 +22,15 @@ export const processPostmortem = (
   cards: CardEntity[]
 ): Player["state"] => {
   return cards.reduce((acc, card) => {
-    const processedCard =
-      card.type === "spell" ? card : { ...card, hasAttacked: true };
     if (card.type === "spell" || card.keywords.includes("fragile")) {
       return {
         ...acc,
-        discard: [...acc.discard, processedCard],
+        discard: [...acc.discard, card],
       };
     } else {
       return {
         ...acc,
-        graveyard: [...acc.graveyard, processedCard as CreatureEntity],
+        graveyard: [...acc.graveyard, card as CreatureEntity],
       };
     }
   }, playerState);

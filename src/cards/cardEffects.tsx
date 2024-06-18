@@ -58,9 +58,16 @@ export const BlockerTooltip = () => (
   </b>
 );
 
+export const BloodlustTooltip = () => (
+  <b title="This creature can attack enemy creatures even if it has not been on the battlefield for a turn">
+    bloodlust
+  </b>
+);
+
 export const KEYWORD_TOOLTIPS: Record<Keyword, () => JSX.Element> = {
   blocker: BlockerTooltip,
   draw: DrawTooltip,
   flow: () => <></>,
   fragile: FragileTooltip,
+  bloodlust: BloodlustTooltip,
 };

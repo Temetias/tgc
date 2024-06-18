@@ -28,7 +28,14 @@ const playerHasPlayableCardSelected: GameCondition = (game) =>
 const playerHasCreaturesSelectedThatCanAttack = (game: GameState) => {
   if (!playerHasCreatureEntitiesSelected(game)) return false;
   const creatures = game.player1.state.userSelection as CreatureEntity[];
-  if (!creatures.every((c) => isCreatureEntity(c) && !c.hasAttacked)) {
+  if (
+    !creatures.every(
+      (c) =>
+        isCreatureEntity(c) &&
+        !c.hasAttacked &&
+        (!c.wasPlayedThisTurn || c.keywords.includes("bloodlust"))
+    )
+  ) {
     return false;
   }
   return true;
@@ -39,6 +46,13 @@ const playerHasCreaturesSelectedThatCanAttackProtection: GameCondition = (
 ) => {
   if (!playerHasCreaturesSelectedThatCanAttack(game)) return false;
   const creatures = game.player1.state.userSelection as CreatureEntity[];
+  if (
+    creatures.find(
+      (c) => c.wasPlayedThisTurn && c.keywords.includes("bloodlust")
+    )
+  ) {
+    return false; // make sure no bloodlust creatures are attacking protection
+  }
   if (!game.player2.state.protection.length) return false;
   if (game.player2.state.field.length) return false;
   return creatures.reduce((acc, c) => acc + c.power, 0) >= PROTECTION_POWER;

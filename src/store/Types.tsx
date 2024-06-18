@@ -14,7 +14,7 @@ export const isSpellEntity = (card: CardEntity): card is SpellEntity =>
 
 export type CommonKeyword = "draw";
 
-export type CreatureKeyword = "blocker" | "fragile";
+export type CreatureKeyword = "blocker" | "fragile" | "bloodlust";
 
 export type SpellKeyword = "flow";
 
@@ -42,6 +42,7 @@ export type Creature = {
 export type CreatureEntity = Creature & {
   id: string;
   hasAttacked: boolean;
+  wasPlayedThisTurn: boolean;
 };
 
 export type Spell = {
@@ -91,6 +92,7 @@ type TransportableCardEntity = {
 
 export type TransportableCreatureEntity = TransportableCardEntity & {
   hasAttacked: boolean;
+  wasPlayedThisTurn: boolean;
 };
 
 export type TransportablePlayerGameState = Omit<

@@ -1,7 +1,6 @@
 import {
   PropsWithChildren,
   createContext,
-  useCallback,
   useContext,
   useEffect,
   useState,
@@ -28,12 +27,14 @@ export type StoreData = {
 const initialStore: StoreData = (() => {
   const player1InitialDeck = MOCK_DECK.map((c) => ({
     ...c,
-    hasAttacked: true,
+    hasAttacked: false,
+    wasPlayedThisTurn: false,
     id: uuidv4(),
   }));
   const player2InitialDeck = MOCK_DECK.map((c) => ({
     ...c,
-    hasAttacked: true,
+    hasAttacked: false,
+    wasPlayedThisTurn: false,
     id: uuidv4(),
   }));
   const [player1DeckRemaining, player1Hand] = pickRandomCards(
@@ -186,40 +187,57 @@ const playerGameStateToTransportablePlayerGameState = (
     cardId,
     ...("power" in rest ? { power: rest.power } : {}),
     ...("hasAttacked" in rest ? { hasAttacked: rest.hasAttacked } : {}),
+    ...("wasPlayedThisTurn" in rest
+      ? { wasPlayedThisTurn: rest.wasPlayedThisTurn }
+      : {}),
   })),
   field: pgs.field.map(({ id, cardId, ...rest }) => ({
     id,
     cardId,
     hasAttacked: rest.hasAttacked,
+    wasPlayedThisTurn: rest.wasPlayedThisTurn,
   })),
   graveyard: pgs.graveyard.map(({ id, cardId, ...rest }) => ({
     id,
     cardId,
     hasAttacked: rest.hasAttacked,
+    wasPlayedThisTurn: rest.wasPlayedThisTurn,
   })),
   hand: pgs.hand.map(({ id, cardId, ...rest }) => ({
     id,
     cardId,
     ...("power" in rest ? { power: rest.power } : {}),
     ...("hasAttacked" in rest ? { hasAttacked: rest.hasAttacked } : {}),
+    ...("wasPlayedThisTurn" in rest
+      ? { wasPlayedThisTurn: rest.wasPlayedThisTurn }
+      : {}),
   })),
   protection: pgs.protection.map(({ id, cardId, ...rest }) => ({
     id,
     cardId,
     ...("power" in rest ? { power: rest.power } : {}),
     ...("hasAttacked" in rest ? { hasAttacked: rest.hasAttacked } : {}),
+    ...("wasPlayedThisTurn" in rest
+      ? { wasPlayedThisTurn: rest.wasPlayedThisTurn }
+      : {}),
   })),
   resource: pgs.resource.map(({ id, cardId, ...rest }) => ({
     id,
     cardId,
     ...("power" in rest ? { power: rest.power } : {}),
     ...("hasAttacked" in rest ? { hasAttacked: rest.hasAttacked } : {}),
+    ...("wasPlayedThisTurn" in rest
+      ? { wasPlayedThisTurn: rest.wasPlayedThisTurn }
+      : {}),
   })),
   stack: pgs.stack.map(({ id, cardId, ...rest }) => ({
     id,
     cardId,
     ...("power" in rest ? { power: rest.power } : {}),
     ...("hasAttacked" in rest ? { hasAttacked: rest.hasAttacked } : {}),
+    ...("wasPlayedThisTurn" in rest
+      ? { wasPlayedThisTurn: rest.wasPlayedThisTurn }
+      : {}),
   })),
   userSelection:
     pgs.userSelection === null
@@ -229,6 +247,7 @@ const playerGameStateToTransportablePlayerGameState = (
           id,
           cardId,
           hasAttacked: rest.hasAttacked,
+          wasPlayedThisTurn: rest.wasPlayedThisTurn,
           ...("power" in rest ? { power: rest.power } : {}),
         }))
       : {
@@ -239,6 +258,9 @@ const playerGameStateToTransportablePlayerGameState = (
             : {}),
           ...("hasAttacked" in pgs.userSelection
             ? { hasAttacked: pgs.userSelection.hasAttacked }
+            : {}),
+          ...("wasPlayedThisTurn" in pgs.userSelection
+            ? { wasPlayedThisTurn: pgs.userSelection.wasPlayedThisTurn }
             : {}),
         },
 });

@@ -1,5 +1,6 @@
 import { Card } from "../store/Types";
 import { Angel } from "./angel/Angel";
+import { Chort } from "./chort/Chort";
 import { Doom } from "./doom/Doom";
 import { FireLash } from "./fireLash/FireLash";
 import { GreaterZombie } from "./greaterZombie/GreaterZombie";
@@ -23,6 +24,7 @@ const allCards = [
   Reaper,
   Warrior,
   Wave,
+  Chort,
 ];
 
 const cardIndex = allCards.reduce((acc, card) => {

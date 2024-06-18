@@ -1,4 +1,5 @@
 import { Angel } from "../cards/angel/Angel";
+import { Chort } from "../cards/chort/Chort";
 import { Doom } from "../cards/doom/Doom";
 import { FireLash } from "../cards/fireLash/FireLash";
 import { GreaterZombie } from "../cards/greaterZombie/GreaterZombie";
@@ -47,4 +48,9 @@ export const MOCK_DECK: Card[] = [
   FireLash,
   FireLash,
   FireLash,
+  Chort,
+  Chort,
+  Chort,
+  Chort,
+  Chort,
 ];

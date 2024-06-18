@@ -216,6 +216,8 @@ const Field = ({ field }: { field: CreatureEntity[] }) => {
             card={card}
             className={
               (!card.hasAttacked &&
+              (!card.wasPlayedThisTurn ||
+                card.keywords.includes("bloodlust")) &&
               !Pointers.selectedCreatures(game).length &&
               game.turn === "player1"
                 ? "Game--playable "

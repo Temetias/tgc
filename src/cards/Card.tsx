@@ -42,7 +42,7 @@ export const CardComponent = ({
         <div>
           <div>
             <b>
-              {card.keywords.map((keyword, i) => (
+              {card.keywords?.map((keyword, i) => (
                 <React.Fragment key={keyword}>
                   {!!i && ", "}
                   {KEYWORD_TOOLTIPS[keyword]()}

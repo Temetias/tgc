@@ -33,6 +33,8 @@ const selectCreature: GameAction<CreatureEntity> = (creature) => (game) => {
   if (!Conditions.isPlayerTurn(game)) return game;
   if (!isCreatureEntity(creature)) return game;
   if (creature.hasAttacked) return game;
+  if (creature.wasPlayedThisTurn && !creature.keywords.includes("bloodlust"))
+    return game;
   return {
     ...game,
     player1: {
@@ -96,7 +98,10 @@ const playSelectionCreatureToField: GameAction<void> = () => (game) => {
       ...newGameState.player1,
       state: {
         ...newGameState.player1.state,
-        field: [...newGameState.player1.state.field, card],
+        field: [
+          ...newGameState.player1.state.field,
+          { ...card, wasPlayedThisTurn: true },
+        ],
         hand: newGameState.player1.state.hand.filter((c) => c.id !== card.id),
         resourceSpent: newGameState.player1.state.resourceSpent + card.cost,
       },
@@ -224,6 +229,7 @@ const endTurn: GameAction<void> = () => (game) => {
         field: game.player2.state.field.map((c) => ({
           ...c,
           hasAttacked: false,
+          wasPlayedThisTurn: false,
         })),
         hand: [...game.player2.state.hand, ...picked],
         stack: remaining,
