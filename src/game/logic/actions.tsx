@@ -30,6 +30,7 @@ const selectCard: GameAction<CardEntity | null> = (card) => (game) => ({
 });
 
 const selectCreature: GameAction<CreatureEntity> = (creature) => (game) => {
+  if (!Conditions.isPlayerTurn(game)) return game;
   if (!isCreatureEntity(creature)) return game;
   if (creature.hasAttacked) return game;
   return {
@@ -50,6 +51,7 @@ const selectCreature: GameAction<CreatureEntity> = (creature) => (game) => {
 };
 
 const playSelectionSpellToField: GameAction<void> = () => (game) => {
+  if (!Conditions.isPlayerTurn(game)) return game;
   if (!Conditions.playerHasCardSelected(game)) return game;
   const card = game.player1.state.userSelection as CardEntity;
   if (isCreatureEntity(card)) return game;
@@ -78,6 +80,7 @@ const playSelectionSpellToField: GameAction<void> = () => (game) => {
 };
 
 const playSelectionCreatureToField: GameAction<void> = () => (game) => {
+  if (!Conditions.isPlayerTurn(game)) return game;
   if (!Conditions.playerHasCardSelected(game)) return game;
   const card = game.player1.state.userSelection as CardEntity;
   if (!isCreatureEntity(card)) return game;
@@ -102,6 +105,7 @@ const playSelectionCreatureToField: GameAction<void> = () => (game) => {
 };
 
 const playSelectionCardToResource: GameAction<void> = () => (game) => {
+  if (!Conditions.isPlayerTurn(game)) return game;
   if (!Conditions.playerHasCardSelected(game)) return game;
   if (Conditions.playerHasPlayedResource(game)) return game;
   const card = game.player1.state.userSelection as CardEntity;
@@ -121,6 +125,7 @@ const playSelectionCardToResource: GameAction<void> = () => (game) => {
 
 export const attackCreature: GameAction<CreatureEntity> =
   (target) => (game) => {
+    if (!Conditions.isPlayerTurn(game)) return game;
     if (!Conditions.playerHasCreaturesSelectedThatCanAttack(game)) return game;
     if (
       !target.keywords.includes("blocker") &&
@@ -172,6 +177,7 @@ export const attackCreature: GameAction<CreatureEntity> =
 
 const attackProtection: GameAction<CardEntity> =
   (target: CardEntity) => (game) => {
+    if (!Conditions.isPlayerTurn(game)) return game;
     if (!Conditions.playerHasCreaturesSelectedThatCanAttackProtection(game)) {
       return game;
     }
@@ -204,6 +210,7 @@ const attackProtection: GameAction<CardEntity> =
   };
 
 const endTurn: GameAction<void> = () => (game) => {
+  if (!Conditions.isPlayerTurn(game)) return game;
   const [remaining, picked] = pickRandomCards(game.player2.state.stack, 1);
   return {
     ...game,
@@ -228,6 +235,7 @@ const endTurn: GameAction<void> = () => (game) => {
 };
 
 const winGame: GameAction<void> = () => (game) => {
+  if (!Conditions.isPlayerTurn(game)) return game;
   if (!Conditions.playerCanWinGame(game)) return game;
   return {
     ...game,

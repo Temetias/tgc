@@ -51,6 +51,8 @@ const playerCanWinGame: GameCondition = (game) => {
   return true;
 };
 
+const isPlayerTurn: GameCondition = (game) => game.turn === "player1";
+
 const Conditions = {
   playerHasCardSelected,
   playerHasCreatureEntitiesSelected,
@@ -59,6 +61,7 @@ const Conditions = {
   playerHasCreaturesSelectedThatCanAttack,
   playerHasCreaturesSelectedThatCanAttackProtection,
   playerCanWinGame,
+  isPlayerTurn,
 };
 
 export default Conditions;
