@@ -1,5 +1,4 @@
 import { Creature } from "../../store/Types";
-import { pickRandomCards } from "../../utils";
 import art from "./greaterZombie.png";
 
 export const GreaterZombie: Creature = {

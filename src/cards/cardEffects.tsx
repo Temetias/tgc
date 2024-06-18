@@ -59,7 +59,7 @@ export const BlockerTooltip = () => (
 );
 
 export const BloodlustTooltip = () => (
-  <b title="This creature can attack enemy creatures even if it has not been on the battlefield for a turn">
+  <b title="This creature can attack enemy creatures immediately after being played">
     bloodlust
   </b>
 );

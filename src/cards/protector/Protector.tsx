@@ -3,7 +3,7 @@ import art from "./protector.png";
 
 export const Protector: Creature = {
   cardId: "protector",
-  name: "protector",
+  name: "Protector",
   cost: 3,
   img: art,
   keywords: ["blocker"],

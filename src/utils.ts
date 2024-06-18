@@ -1,6 +1,4 @@
-import cardIndex from "./cards/CardIndex";
-import { LOCAL_STORAGE_DECK_KEY } from "./constants";
-import { Card, CardEntity, CreatureEntity, Player } from "./store/Types";
+import { CardEntity, CreatureEntity, Player } from "./store/Types";
 
 // Randomly pics the specified amount of cards from the deck and returns the
 // remaining deck and the picked cards.
